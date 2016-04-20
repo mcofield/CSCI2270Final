@@ -27,13 +27,15 @@ struct mazeRoom{
 
 class BSTMaze{
     public:
-        BSTMaze();
-        BSTMaze(int numberOfRooms);
-        ~BSTMaze();
+        void BSTMazeCreate(int rooms);
+        void BSTMaze();
+        void ~BSTMaze();
 
     private:
         mazeRoom root;
+        void BSTDelete(mazeRoom*);
         int leftTurns;
+        int numberOfRooms;
 
 };
 #endif //BSTMAZE_H
