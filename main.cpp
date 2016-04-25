@@ -33,7 +33,9 @@ int main(){
         else{
             cout<<"That was not an option."<<endl;
         }
-
+    }
+    difficultyLevel = dungeon.battle(50, 1, .5);
+    difficultyLevel = dungeon.battle(80, 1.5, 2);
 
     return 0;
 }

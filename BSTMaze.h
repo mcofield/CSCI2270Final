@@ -1,4 +1,4 @@
-#endif BSTMAZE_H
+#ifndef BSTMAZE_H
 #define BSTMAZE_H
 #include<string>
 
@@ -28,17 +28,20 @@ struct mazeRoom{
 class BSTMaze{
     public:
         void BSTMazeCreate(int rooms);
-        void BSTMaze();
-        void ~BSTMaze();
+        BSTMaze();
+        ~BSTMaze();
         bool battle(int, int, int); //if 1, left turn.  if 0, right turn.
+        bool accuracyCheck(int, int);
+        bool criticalCheck(int, int, int);
+        int hexToDec(int);
     private:
         int health;
         int attack;
         int defence;
-        mazeRoom root;
+        mazeRoom *root;
         void BSTDelete(mazeRoom*);
         int leftTurns;
         int numberOfRooms;
 
 };
-#endif //BSTMAZE_H
+#endif // BSTMAZE_H
