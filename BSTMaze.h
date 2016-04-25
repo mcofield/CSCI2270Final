@@ -30,8 +30,11 @@ class BSTMaze{
         void BSTMazeCreate(int rooms);
         void BSTMaze();
         void ~BSTMaze();
-
+        bool battle(int, int, int); //if 1, left turn.  if 0, right turn.
     private:
+        int health;
+        int attack;
+        int defence;
         mazeRoom root;
         void BSTDelete(mazeRoom*);
         int leftTurns;
