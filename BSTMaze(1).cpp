@@ -1,4 +1,4 @@
-#include "BSTMaze.h"
+#include "BSTMaze(1).h"
 
 using namespace std;
 
@@ -28,15 +28,45 @@ mazeRoom BSTMaze::BSTMazeCreate(int rooms){
 }
 */
 
-mazeRoom BSTMaze::mazeBuild(int rooms){
-    root = NULL;
-    mazeRoom* temp;
+
+
+mazeRoom *BSTMaze::mazeBuild(int rooms){
+srand(time(NULL));
+    vector<int> indicies;
+    vector<mazeRoom*> ourRooms;
     for(int i=0;i<rooms;i++){
         int index = rand()%100+1;
-        //cout<<index<<endl;
-        addRoomNode(index,i+1);
+        if(find(indicies.begin(),indicies.end(),index)!= indicies.end()){
+            i--;
+        }
+        else{
+            indicies.push_back(index);
+        }
     }
-    return *temp; //this is where i got last and where it breaks
+    for(int i=0;i<indicies.size();i++){
+
+        mazeRoom* building = new mazeRoom(indicies[i],i);
+        ourRooms.push_back(building);
+    }
+    sort(ourRooms.begin(),ourRooms.end());
+    root = sortTree(ourRooms,0,ourRooms.size()-1);
+
+    return root; //this is where i got last and where it breaks
+}
+
+mazeRoom* BSTMaze::sortTree(vector<mazeRoom*> ourRooms, int start, int end){
+    if(start>end){
+        return NULL;
+    }
+    int mid=(start+end)/2;
+
+    mazeRoom* curr = ourRooms[mid];
+
+    curr->left = sortTree(ourRooms,start,mid-1);
+
+    curr->right = sortTree(ourRooms,mid+1,end);
+
+    return curr;
 }
 
 void BSTMaze::addRoomNode(int index, int fI){
@@ -196,7 +226,7 @@ void BSTMaze::traverseTree(mazeRoom* curr, bool win){
 }
 
 void BSTMaze::generateRoom(int funcIndex){
-    switch(funcIndex+1){
+    switch(funcIndex){
         case 1: cout<<"This is a riddle room."<<endl;
                 cout<<"What movie is Chiddy Chiddy ! ! from?"<<endl;
                 break;

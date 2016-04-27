@@ -4,6 +4,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string>
+#include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -26,6 +28,9 @@ struct mazeRoom{
         left = NULL;
         parent = NULL;
     }
+    bool operator<(const mazeRoom & B){
+        return (index<B.index);
+    }
 };
 
 class BSTMaze{
@@ -40,14 +45,15 @@ class BSTMaze{
         void generateRoom(int funcIndex);
         int action(string input, int funcIndex);
         int hexToDec(int);
-        mazeRoom mazeBuild(int rooms);
+        mazeRoom* mazeBuild(int rooms);
         void addRoomNode(int index,int fI);
     private:
         int health;
         int attack;
         int defence;
-        mazeRoom *root;
+        mazeRoom *root = NULL;
         void BSTDelete(mazeRoom*);
+        mazeRoom* sortTree(vector<mazeRoom*> ourRooms, int start, int end);
         int leftTurns;
         int numberOfRooms;
 

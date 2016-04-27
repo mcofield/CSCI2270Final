@@ -1,13 +1,14 @@
-#include"BSTMaze.h"
+#include"BSTMaze(1).h"
 
 using namespace std;
 
 int main(){
+
     int playMenu = 0;
     int lossCounter = 0;
     int mainMenu=0;
     BSTMaze dungeon;
-    mazeRoom currentRoom;
+    mazeRoom *currentRoom;
     bool difficultyLevel = false;
     cout<<"========Welcome========"<<endl;
     while(mainMenu!=3){
@@ -25,17 +26,17 @@ int main(){
                 cin>>playMenu;
 
                 if(playMenu == 1){
-                    currentRoom = dungeon.mazeBuild(8);
+                    currentRoom = dungeon.mazeBuild(9);
                     difficultyLevel = true;
                 }
 
                 else if(playMenu == 2){
-                    currentRoom = dungeon.mazeBuild(16);
+                    currentRoom = dungeon.mazeBuild(17);
                     difficultyLevel = true;
                 }
 
                 else if(playMenu == 3){
-                    currentRoom = dungeon.mazeBuild(32);
+                    currentRoom = dungeon.mazeBuild(33);
                     difficultyLevel = true;
                 }
 
@@ -48,19 +49,20 @@ int main(){
             while(lossCounter <= 1){
                 string input;
                 int outcome;
-                dungeon.generateRoom(currentRoom.funcIndex);
-                cout<<currentRoom.index<<endl;
+                cout<<"root func:" << currentRoom->funcIndex;
+                cout<<" left func:"<< currentRoom->left->funcIndex;
+                cout<<" right func:"<<currentRoom->right->funcIndex<<endl;
+                dungeon.generateRoom(currentRoom->funcIndex);
                 cin>>input;
-                cout<<input<<endl;
-                outcome = dungeon.action(input, currentRoom.funcIndex);
+                outcome = dungeon.action(input, currentRoom->funcIndex);
                 if(outcome==0){
-                    dungeon.traverseTree(&currentRoom,true);
+                    dungeon.traverseTree(currentRoom,true);
                 }
                 else{
-                    dungeon.traverseTree(&currentRoom,false);
+                    dungeon.traverseTree(currentRoom,false);
                     lossCounter+=outcome;
                 }
-                if(lossCounter!=2 && currentRoom.right==NULL){
+                if(lossCounter!=2 && currentRoom->right==NULL){
                     cout<<"You've made it to the trayshur"<<endl;
                     return 0;
                 }
