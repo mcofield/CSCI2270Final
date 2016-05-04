@@ -104,11 +104,14 @@ BSTMaze::~BSTMaze(){
 }
 
 void BSTMaze::BSTDelete(mazeRoom* current){
-    if(current->right != NULL){
-        BSTDelete(current->right);
-    }
-    if(current->left != NULL){
-        BSTDelete(current->left);
+    if(current != NULL)
+    {
+        if(current->right != NULL){
+            BSTDelete(current->right);
+        }
+        if(current->left != NULL){
+            BSTDelete(current->left);
+        }
     }
     delete current;
 }
